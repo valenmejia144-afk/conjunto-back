@@ -1,16 +1,10 @@
 const express = require('express');
 const db = require('./db');
 
-const app = express();
-const PORT = 3000;
+const router = express.Router();
+const verifyToken = require("./auth");
 
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('Servidor funcionando');
-});
-
-app.get('/usuario', (req, res) => {
+router.get('/usuario', verifyToken, (req, res) => {
 
   const sql = 'SELECT * FROM usuario';
 
@@ -25,7 +19,7 @@ app.get('/usuario', (req, res) => {
 
 });
 
-app.get('/usuario/:id', (req, res) => {
+router.get('/usuario/:id', verifyToken, (req, res) => {
 
   const id = req.params.id;
 
@@ -52,7 +46,7 @@ app.get('/usuario/:id', (req, res) => {
 
 // Crear usuario
 
-app.post('/usuario', (req, res) => {
+router.post('/usuario', verifyToken, (req, res) => {
 
   const { nombre, correo, password, rol} = req.body;
 
@@ -78,7 +72,7 @@ app.post('/usuario', (req, res) => {
 
 //Actualizar
 
-app.put('/usuario/:id', (req, res) => {
+router.put('/usuario/:id', verifyToken, (req, res) => {
 
   const id = req.params.id;
 
@@ -112,7 +106,7 @@ app.put('/usuario/:id', (req, res) => {
 
 // Eleminar 
 
-app.delete('/usuario/:id', (req, res) => {
+router.delete('/usuario/:id', verifyToken, (req, res) => {
 
   const id = req.params.id;
 
@@ -138,7 +132,4 @@ app.delete('/usuario/:id', (req, res) => {
 
 });
 
-
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+module.exports = router;
