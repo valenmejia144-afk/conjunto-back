@@ -18,5 +18,5 @@ app.use("/auth", authRoutes);
 app.use("/usuario", usuarioRoutes);
 
 app.listen(process.env.PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:3000`);
 });

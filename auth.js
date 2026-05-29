@@ -1,6 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const db = require('./db');
-
+require('dotenv').config();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -35,13 +36,13 @@ router.post("/login", async (req, res) => {
       // Usuario encontrado
       const user = result[0];
 
-      // Comparar password
+      /* Comparar password
       const validPassword = await bcrypt.compare(
         password,
         user.password
-      );
+      );*/
 
-      if (!validPassword) {
+      if (user.password !== password) {
 
         return res.status(400).json({
           message: "Contraseña incorrecta"
@@ -81,7 +82,7 @@ router.post("/login", async (req, res) => {
 });
   
 
-function verifyToken(req, res, next) {
+const verifyToken = (req, res, next) => {
 
   const bearerHeader = req.headers["authorization"];
 
@@ -124,4 +125,4 @@ function verifyToken(req, res, next) {
 module.exports = {
   router,
   verifyToken
-};
+}

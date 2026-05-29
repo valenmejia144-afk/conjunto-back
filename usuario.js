@@ -2,7 +2,8 @@ const express = require('express');
 const db = require('./db');
 
 const router = express.Router();
-const verifyToken = require("./auth");
+
+const { verifyToken } = require("./auth");
 
 router.get('/usuario', verifyToken, (req, res) => {
 
