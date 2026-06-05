@@ -43,6 +43,7 @@ app.use('/residente', residenteRoutes);
 app.use('/api/visitas', visitasRouter);
 app.use('/visitas', visitasRouter);
 
+
 app.listen(process.env.PORT, () => {
   console.log(`Servidor corriendo en http://localhost:3000`);
 });
